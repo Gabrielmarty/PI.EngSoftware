@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Controle de Abastecimento</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="login-container" class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4">Login</h2>
+                        <form id="login-form">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Usuário</label>
+                                <input type="text" class="form-control" id="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Senha</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                            <button type="button" id="show-register" class="btn btn-link w-100 mt-2">Criar nova conta</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="register-container" class="container mt-5 d-none">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4">Criar Conta</h2>
+                        <form id="register-form">
+                            <div class="mb-3">
+                                <label for="new-username" class="form-label">Novo Usuário</label>
+                                <input type="text" class="form-control" id="new-username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="new-password" class="form-label">Nova Senha</label>
+                                <input type="password" class="form-control" id="new-password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirm-password" class="form-label">Confirmar Senha</label>
+                                <input type="password" class="form-control" id="confirm-password" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Criar Conta</button>
+                            <button type="button" id="show-login" class="btn btn-link w-100 mt-2">Voltar para Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app" class="container mt-4 d-none">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Controle de Abastecimento</h2>
+            <button id="logout-btn" class="btn btn-outline-danger">Sair</button>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Novo Abastecimento</h5>
+            </div>
+            <div class="card-body">
+                <form id="abastecimento-form">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nome" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="data" class="form-label">Data</label>
+                            <input type="date" class="form-control" id="data" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="combustivel" class="form-label">Combustível</label>
+                            <select class="form-select" id="combustivel" required>
+                                <option value="">Selecione...</option>
+                                <option value="Gasolina Comum">Gasolina Comum</option>
+                                <option value="Gasolina Aditivada">Gasolina Aditivada</option>
+                                <option value="Etanol">Etanol</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="GNV">GNV</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="litros" class="form-label">Litros</label>
+                            <input type="number" step="0.01" class="form-control" id="litros" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="local" class="form-label">Local de Abastecimento</label>
+                            <input type="text" class="form-control" id="local" required>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Registrar Abastecimento</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Filtros</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="filtro-nome" class="form-label">Filtrar por Nome</label>
+                        <input type="text" class="form-control" id="filtro-nome" placeholder="Digite o nome">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="filtro-data" class="form-label">Filtrar por Data</label>
+                        <input type="date" class="form-control" id="filtro-data">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="filtro-dias" class="form-label">Últimos Dias</label>
+                        <select class="form-select" id="filtro-dias">
+                            <option value="">Selecione...</option>
+                            <option value="7">Últimos 7 dias</option>
+                            <option value="15">Últimos 15 dias</option>
+                            <option value="30">Últimos 30 dias</option>
+                            <option value="90">Últimos 90 dias</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="filtro-inicio" class="form-label">Data Início (período)</label>
+                        <input type="date" class="form-control" id="filtro-inicio">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="filtro-fim" class="form-label">Data Fim (período)</label>
+                        <input type="date" class="form-control" id="filtro-fim">
+                    </div>
+                    <div class="col-12">
+                        <button id="limpar-filtros" class="btn btn-secondary">Limpar Filtros</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Registros de Abastecimento</h5>
+                <div>
+                    <button id="gerar-aleatorios" class="btn btn-sm btn-outline-warning me-2">Gerar Abastecimentos Aleatórios</button>
+                    <button id="exportar-csv" class="btn btn-sm btn-outline-success me-2">Exportar CSV</button>
+                    <button id="importar-csv" class="btn btn-sm btn-outline-primary">Importar CSV</button>
+                    <input type="file" id="file-input" class="d-none" accept=".csv">
+                    <span class="mx-2">|</span>
+                    <button id="exportar-json" class="btn btn-sm btn-outline-success me-2">Salvar Backup (JSON)</button>
+                    <button id="importar-json" class="btn btn-sm btn-outline-primary">Restaurar Backup (JSON)</button>
+                    <input type="file" id="file-input-json" class="d-none" accept="application/json,.json">
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Data</th>
+                                <th>Combustível</th>
+                                <th>Litros</th>
+                                <th>Local</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-abastecimentos">
+                            <!-- Os registros serão inseridos aqui via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0">Relatório de Abastecimentos por Pessoa</h5>
+            </div>
+            <div class="card-body">
+                <div id="resumo-periodo" class="mb-3 text-muted">
+                    <!-- Resumo do período e maior abastecedor será inserido via JavaScript -->
+                </div>
+                <div class="d-flex justify-content-end mb-3">
+                    <button id="exportar-relatorio-csv" class="btn btn-sm btn-outline-success">Exportar Relatório (CSV)</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Pessoa</th>
+                                <th>Total de Litros</th>
+                                <th>Média por Abastecimento</th>
+                            </tr>
+                        </thead>
+                        <tbody id="relatorio-pessoas">
+                            <!-- O relatório será inserido aqui via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4">
+                    <canvas id="grafico-relatorio" height="120"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editarModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Abastecimento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editar-form">
+                        <input type="hidden" id="editar-id">
+                        <div class="mb-3">
+                            <label for="editar-nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="editar-nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editar-data" class="form-label">Data</label>
+                            <input type="date" class="form-control" id="editar-data" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editar-combustivel" class="form-label">Combustível</label>
+                            <select class="form-select" id="editar-combustivel" required>
+                                <option value="Gasolina Comum">Gasolina Comum</option>
+                                <option value="Gasolina Aditivada">Gasolina Aditivada</option>
+                                <option value="Etanol">Etanol</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="GNV">GNV</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editar-litros" class="form-label">Litros</label>
+                            <input type="number" step="0.01" class="form-control" id="editar-litros" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editar-local" class="form-label">Local de Abastecimento</label>
+                            <input type="text" class="form-control" id="editar-local" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="salvar-edicao">Salvar Alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
